@@ -3,7 +3,7 @@ services:
   auth:
     build:
       context: ../
-      dockerfile: C:\Users\HP\Desktop\auth\Dockerfile
+      dockerfile: Dockerfile
     image: auth
     command: node dist/main.js
     env_file:
