@@ -12,12 +12,11 @@
    ```shell
    git clone https://github.com/Leviantt/auth
    ```
-
 3. Перейдите в корневую директорию проекта.
    ```shell
    cd auth
    ```
-
+4. Создайте в директории infrastructure файл .env на основе .env.example
 5. Выполните команду:
 
    ```shell
