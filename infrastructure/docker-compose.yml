@@ -1,0 +1,47 @@
+version: '3.9'
+services:
+  auth:
+    build:
+      context: ../
+      dockerfile: C:\Users\HP\Desktop\auth\Dockerfile
+    image: auth
+    command: node dist/main.js
+    env_file:
+      - .env
+    ports:
+      - '4000:4000'
+    networks:
+      - auth_network
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - auth-postgres
+  auth-postgres:
+    image: postgres:15.3
+    restart: always
+    hostname: auth-postgres
+    ports:
+      - '5432:5432'
+    networks:
+      - auth_network
+    volumes:
+      - ./database/volume:/var/lib/postgresql/data
+    env_file:
+      - .env
+    healthcheck:
+      test: [ 'CMD-SHELL', 'pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}' ]
+      interval: 3s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: '500M'
+
+
+volumes:
+  postgres_volume:
+
+networks:
+  auth_network:
